@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>BrightSmile Dental — AI Intake & Booking | Powered by Swae Systems</title>
+  <meta name="description" content="Your dental front desk, on autopilot. Answers calls, texts, and DMs — then books new patients for you. Powered by Swae Systems." />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="BrightSmile Dental — AI Intake & Booking" />
+  <meta property="og:description" content="Answers calls, texts, and DMs — then books new patients for you. Powered by Swae Systems." />
+  <meta property="og:image" content="og-cover.JPG" />
+  <meta property="og:site_name" content="Swae Systems" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preload" as="image" href="hero.JPG" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg:#0a0a0a;
+      --card:#121212;
+      --text:#f6f6f6;
+      --muted:#bdbdbd;
+      --gold:#d4af37;
+      --soft:#1a1a1a;
+      --accent:#ffffff;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    }
+    a{color:var(--text); text-decoration:none}
+    .container{width:min(1200px,92%); margin-inline:auto}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:blur(8px);
+      background:rgba(10,10,10,.55); border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; padding:14px 0;
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand img{height:34px; width:auto; border-radius:10px}
+    .brand .titles{display:flex; flex-direction:column; line-height:1.1}
+    .brand .clinic{font-weight:800; letter-spacing:.4px}
+    .brand .powered{font-size:12px; color:var(--muted)}
+    .brand .powered b{color:var(--gold); font-weight:700}
+
+    .nav-links{display:flex; align-items:center; gap:20px}
+    .nav-links a{
+      padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.08);
+      transition:transform .2s ease, background .2s ease, border-color .2s ease;
+      font-weight:600; font-size:14px;
+    }
+    .nav-links a:hover{background:rgba(255,255,255,.06); transform:translateY(-1px); border-color:rgba(255,255,255,.14)}
+    .hamburger{display:none; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:#111}
+    .hamburger span{display:block; width:22px; height:2px; background:#fff; margin:5px 0; transition:.2s}
+
+    /* Mobile menu */
+    .mobile{
+      display:none; position:absolute; left:0; right:0; top:100%;
+      background:#0e0e0e; border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .mobile a{
+      display:block; padding:16px 22px; border-top:1px solid rgba(255,255,255,.06);
+    }
+
+    /* Hero */
+    .hero{
+      position:relative; min-height:82vh; display:grid; align-items:center;
+      background:radial-gradient(1200px 600px at 80% -10%, rgba(212,175,55,.18), transparent 60%),
+                 linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+      overflow:hidden;
+    }
+    .hero::before{
+      content:""; position:absolute; inset:0; background:url('hero.JPG') center/cover no-repeat;
+      opacity:.25; filter:saturate(0.8) contrast(1.05) brightness(.7);
+    }
+    .hero::after{
+      content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,.4), rgba(10,10,10,.85) 60%, rgba(10,10,10,1));
+    }
+    .hero-inner{position:relative; z-index:1; padding:80px 0}
+    .eyebrow{
+      display:inline-flex; gap:10px; align-items:center; padding:6px 12px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); font-size:12px; color:var(--muted);
+    }
+    .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 4px rgba(212,175,55,.15)}
+    h1{
+      font-family:"Playfair Display", serif; font-size:clamp(34px,4.6vw,56px); margin:16px 0 10px; letter-spacing:.3px;
+    }
+    .sub{
+      color:#d9d9d9; font-size:clamp(15px,1.7vw,18px); max-width:780px; margin-bottom:28px;
+    }
+    .cta-row{display:flex; gap:14px; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; padding:13px 18px; border-radius:12px; font-weight:700;
+      border:1px solid rgba(255,255,255,.12); background:#111; box-shadow:var(--shadow); transition:.2s;
+    }
+    .btn:hover{transform:translateY(-1px); background:#151515}
+    .btn.gold{background:linear-gradient(180deg,#f5d98c,#d4af37); color:#121212; border-color:rgba(0,0,0,.25)}
+    .btn.gold:hover{filter:saturate(1.05) brightness(1.02)}
+    .trust{margin-top:18px; color:var(--muted); font-size:14px}
+    .hero-grid{
+      margin-top:40px; display:grid; grid-template-columns:repeat(12,1fr); gap:16px;
+    }
+    .hero-card{
+      grid-column:span 4; min-height:140px; border-radius:var(--radius); background:linear-gradient(180deg,#141414,#0f0f0f);
+      border:1px solid rgba(255,255,255,.06); box-shadow:var(--shadow); position:relative; overflow:hidden;
+      transition:transform .25s ease, border-color .25s ease;
+    }
+    .hero-card:hover{transform:translateY(-2px); border-color:rgba(212,175,55,.35)}
+    .hero-card .bg{
+      position:absolute; inset:0; opacity:.22; filter:grayscale(1) contrast(1.05) brightness(.85);
+      background-size:cover; background-position:center;
+    }
+    .hero-card .overlay{position:absolute; inset:0; background:radial-gradient(800px 240px at 20% -10%, rgba(212,175,55,.16), transparent 60%)}
+    .hero-card .content{position:relative; padding:18px}
+    .kicker{font-size:12px; color:var(--muted); letter-spacing:.3px}
+    .title{font-weight:800; margin-top:6px}
+    .chip{
+      position:absolute; right:12px; top:12px; background:rgba(212,175,55,.14); color:#f1e4b0;
+      border:1px solid rgba(212,175,55,.28); font-size:12px; padding:4px 8px; border-radius:999px;
+    }
+
+    /* Sections */
+    section{padding:80px 0}
+    .section-title{
+      display:flex; align-items:center; gap:12px; margin-bottom:22px;
+    }
+    .bar{width:40px; height:2px; background:var(--gold); opacity:.9}
+    h2{font-size:clamp(26px,3.6vw,40px); margin:0}
+    .muted{color:var(--muted)}
+
+    /* Benefits grid (cards clickable) */
+    .grid{display:grid; gap:18px}
+    @media(min-width:768px){.grid-3{grid-template-columns:repeat(3,1fr)}}
+
+    .card{
+      position:relative; border-radius:var(--radius); background:linear-gradient(180deg,#141414,#0e0e0e);
+      border:1px solid rgba(255,255,255,.08); overflow:hidden; box-shadow:var(--shadow);
+      transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .card:hover{transform:translateY(-3px); border-color:rgba(212,175,55,.35)}
+    .card .img{
+      height:160px; background-size:cover; background-position:center; opacity:.28; filter:grayscale(1);
+    }
+    .card .body{padding:18px}
+    .card h3{margin:0 0 6px; font-size:18px}
+    .card p{margin:0 0 10px; color:var(--muted)}
+    .link{
+      display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:14px;
+      border-bottom:1px dashed rgba(212,175,55,.55); padding-bottom:2px;
+    }
+
+    /* How it works */
+    .how{display:grid; gap:20px}
+    @media(min-width:900px){.how{grid-template-columns:1.2fr .8fr; align-items:center}}
+    .steps{display:grid; gap:14px}
+    .step{
+      display:grid; grid-template-columns:44px 1fr; gap:12px; align-items:flex-start;
+      padding:14px; border-radius:14px; background:#0f0f0f; border:1px solid rgba(255,255,255,.06);
+    }
+    .num{display:grid; place-items:center; height:44px; width:44px; border-radius:12px; background:rgba(212,175,55,.18); border:1px solid rgba(212,175,55,.35); color:#f6e7b2; font-weight:800}
+
+    .frame{
+      aspect-ratio:16/10; border-radius:16px; background:#0e0e0e; border:1px solid rgba(255,255,255,.08);
+      background-image:url('office.JPG'); background-size:cover; background-position:center; box-shadow:var(--shadow);
+    }
+
+    /* Testimonials */
+    .testi{
+      display:grid; gap:18px; grid-template-columns:1fr; 
+    }
+    @media(min-width:900px){.testi{grid-template-columns:1fr 1fr}}
+    .quote{
+      padding:20px; border-radius:16px; background:#0f0f0f; border:1px solid rgba(255,255,255,.08);
+    }
+    .quote p{font-size:16px; margin:0}
+    .quote .who{margin-top:10px; color:var(--muted); font-size:14px}
+
+    /* FAQ */
+    .faq{display:grid; gap:12px}
+    .qa{
+      border:1px solid rgba(255,255,255,.08); border-radius:14px; overflow:hidden; background:#0f0f0f;
+    }
+    .q{cursor:pointer; padding:16px 18px; display:flex; justify-content:space-between; align-items:center; font-weight:700}
+    .a{padding:0 18px; max-height:0; overflow:hidden; color:var(--muted); transition:max-height .28s ease;}
+    .qa.open .a{padding:0 18px 16px; max-height:300px}
+
+    /* Final CTA */
+    .final{
+      text-align:center; background:linear-gradient(180deg,#101010,#0a0a0a);
+      border:1px solid rgba(255,255,255,.06); border-radius:24px; padding:36px; box-shadow:var(--shadow)
+    }
+
+    /* Reveal on scroll */
+    [data-anim]{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease}
+    .in{opacity:1 !important; transform:none !important}
+
+    /* Utilities */
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .pill{padding:6px 10px; border-radius:999px; font-size:12px; border:1px solid rgba(255,255,255,.12); color:var(--muted)}
+    .spacer{height:20px}
+
+    /* Responsive header */
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .hamburger{display:inline-block}
+      .hero-grid .hero-card{grid-column:span 12}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <img src="logo.JPG" alt="Swae Systems logo" />
+      <div class="titles">
+        <span class="clinic">BrightSmile Dental</span>
+        <span class="powered">Powered by <b>Swae Systems</b></span>
+      </div>
+    </div>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="https://httpstat.us/404" target="_blank" rel="noopener">Benefits</a>
+      <a href="https://httpstat.us/404" target="_blank" rel="noopener">How It Works</a>
+      <a href="https://httpstat.us/404" target="_blank" rel="noopener">Testimonials</a>
+      <a href="https://httpstat.us/404" target="_blank" rel="noopener">FAQ</a>
+    </nav>
+
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div id="mobileMenu" class="mobile container" role="menu" aria-label="Mobile">
+    <a href="https://httpstat.us/404" target="_blank" rel="noopener" role="menuitem">Benefits</a>
+    <a href="https://httpstat.us/404" target="_blank" rel="noopener" role="menuitem">How It Works</a>
+    <a href="https://httpstat.us/404" target="_blank" rel="noopener" role="menuitem">Testimonials</a>
+    <a href="https://httpstat.us/404" target="_blank" rel="noopener" role="menuitem">FAQ</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner" data-anim>
+      <span class="eyebrow"><span class="dot"></span> AI Intake & Booking for Dental Teams</span>
+      <h1>Your Dental Front Desk, On Autopilot.</h1>
+      <p class="sub">Answers calls, texts, and DMs — then books new patients for you. <b>Powered by Swae Systems.</b></p>
+      <div class="cta-row">
+        <a class="btn gold" href="https://httpstat.us/404" target="_blank" rel="noopener" aria-label="See a Live Demo">See a Live Demo</a>
+        <a class="btn" href="https://httpstat.us/404" target="_blank" rel="noopener" aria-label="Watch It Work">Watch It Work</a>
+      </div>
+      <p class="trust">Built for high-volume practices that can’t afford to miss new patients.</p>
+
+      <div class="hero-grid">
+        <a class="hero-card" href="https://httpstat.us/404" target="_blank" rel="noopener" aria-label="Instant Intake card">
+          <div class="bg" style="background-image:url('treatment1.JPG')"></div>
+          <div class="overlay"></div>
+          <div class="content">
+            <span class="chip">24/7</span>
+            <div class="kicker">Feature</div>
+            <div class="title">Instant Intake — Respond in seconds</div>
+          </div>
+        </a>
+        <a class="hero-card" href="https://httpstat.us/404" target="_blank" rel="noopener" aria-label="Calendar Booking card">
+          <div class="bg" style="background-image:url('treatment2.JPG')"></div>
+          <div class="overlay"></div>
+          <div class="content">
+            <span class="chip">Auto-Book</span>
+            <div class="kicker">Feature</div>
+            <div class="title">Calendar Booking — Confirmed appointments</div>
+          </div>
+        </a>
+        <a class="hero-card" href="https://httpstat.us/404" target="_blank" rel="noopener" aria-label="Fewer No-Shows card">
+          <div class="bg" style="background-image:url('team.JPG')"></div>
+          <div class="overlay"></div>
+          <div class="content">
+            <span class="chip">Smarter</span>
+            <div class="kicker">Feature</div>
+            <div class="title">Fewer No-Shows — Deposits + reminders</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- BENEFITS -->
+  <section id="benefits">
+    <div class="container" data-anim>
+      <div class="section-title">
+        <span class="bar"></span><h2>Benefits</h2>
+      </div>
+      <div class="grid grid-3">
+        <a class="card" href="https://httpstat.us/404" target="_blank" rel="noopener" aria-label="Instant Intake link">
+          <div class="img" style="background-image:url('treatment1.JPG')"></div>
+          <div class="body">
+            <h3>Instant Intake — Respond in seconds, 24/7</h3>
+            <p>No more missed calls. Patients get answers instantly and move straight into intake.</p>
+            <span class="link">Open placeholder</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://httpstat.us/404" target="_blank" rel="noopener" aria-label="Calendar Booking link">
+          <div class="img" style="background-image:url('office.JPG')"></div>
+          <div class="body">
+            <h3>Calendar Booking — Confirmed appointments, not phone tag</h3>
+            <p>Books directly into your calendar with guardrails around hours, buffers, and provider rules.</p>
+            <span class="link">Open placeholder</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://httpstat.us/404" target="_blank" rel="noopener" aria-label="Fewer No-Shows link">
+          <div class="img" style="background-image:url('team.JPG')"></div>
+          <div class="body">
+            <h3>Fewer No-Shows — Deposits + smart reminders</h3>
+            <p>Deposits, confirmations, directions, and reschedule links reduce last-minute flake rates.</p>
+            <span class="link">Open placeholder</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="container how" data-anim>
+      <div>
+        <div class="section-title">
+          <span class="bar"></span><h2>How It Works</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Meet Your AI Front Desk</strong><br/>
+              It answers calls, texts, and DMs instantly.
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <strong>Qualify &amp; Schedule</strong><br/>
+              Collects name, reason for visit, insurance, and books a slot.
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <strong>Reduce No-Shows</strong><br/>
+              Sends confirmations, directions, and smart follow-ups.
+            </div>
+          </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+          <span class="pill">HIPAA-minded flow</span>
+          <span class="pill">Google/Outlook/PMS</span>
+          <span class="pill">Deposits</span>
+          <span class="pill">Smart reminders</span>
+        </div>
+      </div>
+      <div class="frame" aria-label="Product preview image"></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="container" data-anim>
+      <div class="section-title">
+        <span class="bar"></span><h2>What Practices Say</h2>
+      </div>
+      <div class="testi">
+        <div class="quote">
+          <p>“We cut missed calls and booked <b>35% more new patients</b> in month one.”</p>
+          <div class="who">— Practice Manager</div>
+        </div>
+        <div class="quote">
+          <p>“Insurance screening + reminders dropped our no-shows fast.”</p>
+          <div class="who">— Office Lead</div>
+        </div>
+      </div>
+    </div>
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container" data-anim>
+      <div class="section-title">
+        <span class="bar"></span><h2>FAQ</h2>
+      </div>
+      <div class="faq">
+        <div class="qa">
+          <div class="q">Does this handle insurance questions? <span>+</span></div>
+          <div class="a">Yes, it collects provider, member ID, and plan basics to speed up eligibility checks.</div>
+        </div>
+        <div class="qa">
+          <div class="q">Can it reschedule? <span>+</span></div>
+          <div class="a">Yes. Patients can move their time from the confirmation/reminder messages.</div>
+        </div>
+        <div class="qa">
+          <div class="q">HIPAA compliant? <span>+</span></div>
+          <div class="a">Yes. We follow a secure, minimal-necessary-data approach and can scope BAAs on request.</div>
+        </div>
+        <div class="qa">
+          <div class="q">Calendar integration? <span>+</span></div>
+          <div class="a">Yes. Works with Google, Outlook, and PMS calendars via connectors.</div>
+        </div>
+        <div class="qa">
+          <div class="q">Can I turn it off? <span>+</span></div>
+          <div class="a">Yes. Set operating hours or pause instantly for after-hours or holidays.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="cta">
+    <div class="container" data-anim>
+      <div class="final">
+        <div class="section-title" style="justify-content:center">
+          <span class="bar"></span><h2 style="margin:0 0 6px">Ready to See It Live?</h2>
+        </div>
+        <p class="muted" style="margin-top:0">BrightSmile Dental’s AI front desk is ready to intake, screen insurance, and book — automatically.</p>
+        <div class="cta-row" style="justify-content:center">
+          <a class="btn gold" href="https://httpstat.us/404" target="_blank" rel="noopener">See a Live Demo</a>
+          <a class="btn" href="https://httpstat.us/404" target="_blank" rel="noopener">Watch It Work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid rgba(255,255,255,.08); background:#0b0b0b">
+  <div class="container" style="display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; align-items:center; padding:22px 0">
+    <div style="display:flex; align-items:center; gap:12px">
+      <img src="logo.JPG" alt="Swae Systems logo small" style="height:26px; width:auto; border-radius:8px" />
+      <span class="muted">© 2025 Swae Systems — All Rights Reserved</span>
+    </div>
+    <div class="row">
+      <a class="pill" href="mailto:hello@swaesystems.com">hello@swaesystems.com</a>
+      <a class="pill" href="https://httpstat.us/404" target="_blank" rel="noopener">Privacy</a>
+      <a class="pill" href="https://httpstat.us/404" target="_blank" rel="noopener">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+  // mobile menu
+  const burger = document.querySelector('.hamburger');
+  const mobile = document.getElementById('mobileMenu');
+  if(burger){
+    burger.addEventListener('click', () => {
+      const open = mobile.style.display === 'block';
+      mobile.style.display = open ? 'none' : 'block';
+      burger.setAttribute('aria-expanded', String(!open));
+    });
+  }
+
+  // reveal on scroll
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold: .12});
+  document.querySelectorAll('[data-anim]').forEach(el=>io.observe(el));
+
+  // FAQ accordions
+  document.querySelectorAll('.qa .q').forEach(q=>{
+    q.addEventListener('click', ()=>{
+      q.parentElement.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>
+  </section>
